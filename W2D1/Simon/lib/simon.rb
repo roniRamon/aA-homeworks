@@ -25,16 +25,28 @@ class Simon
     require_sequence
 
     #if game not over
-    round_success_message
-    @sequence_length += 1
+    unless game_over
+      round_success_message
+      @sequence_length += 1
+    end
   end
 
   def show_sequence
     add_random_color
+    puts seq
+    sleep(1.5)
+    system("clear")
   end
 
   def require_sequence
-
+    puts "Enter the Sequence one color at a time"
+    seq.each_with_index do |color|
+      input = gets.chomp.downcase
+      if color != input
+        @game_over = true
+        break
+      end
+    end
   end
 
   def add_random_color
